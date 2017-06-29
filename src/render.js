@@ -6,6 +6,7 @@ import {
 } from 'sketchapp-json-plugin';
 import buildTree from './buildTree';
 import flexToSketchJSON from './flexToSketchJSON';
+import flattenLayers from './utils/flattenLayers';
 
 import type { SketchLayer, TreeNode } from './types';
 import RedBox from './components/RedBox';
@@ -52,6 +53,23 @@ export const render = (
     try {
       const tree = buildTree(element);
       return renderToSketch(tree, container);
+    } catch (err) {
+      const tree = buildTree(<RedBox error={err} />);
+      return renderToSketch(tree, container);
+    }
+  }
+  return null;
+};
+
+export const experimentalRender = (
+  element: React$Element<any>,
+  container: SketchLayer
+): ?SketchLayer => {
+  if (appVersionSupported()) {
+    try {
+      const tree = buildTree(element);
+      const fullRender = renderToSketch(tree, container);
+      return flattenLayers(fullRender);
     } catch (err) {
       const tree = buildTree(<RedBox error={err} />);
       return renderToSketch(tree, container);

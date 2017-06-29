@@ -15,11 +15,18 @@ class TextRenderer extends SketchRenderer {
     style: ViewStyle,
     textStyle: TextStyle,
     props: any,
-    value: ?string,
+    value: ?string
   ): Array<SketchLayer> {
-    if (value === null) {
+    // Sketch crashes when selecting text layers initialized with an empty string.
+    if (value === null || value === '') {
       const viewRenderer = new ViewRenderer();
-      return viewRenderer.renderBackingLayers(layout, style, textStyle, props, value);
+      return viewRenderer.renderBackingLayers(
+        layout,
+        style,
+        textStyle,
+        props,
+        value
+      );
     }
 
     const frame = makeRect(0, 0, layout.width, layout.height);

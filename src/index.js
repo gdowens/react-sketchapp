@@ -1,5 +1,5 @@
 /* @flow */
-import { render, renderToJSON } from './render';
+import { experimentalRender, render, renderToJSON } from './render';
 import Platform from './Platform';
 import StyleSheet from './stylesheet';
 import Artboard from './components/Artboard';
@@ -11,6 +11,7 @@ import TextStyles from './sharedStyles/TextStyles';
 import { makeSymbol, injectSymbols, makeSymbolByName } from './symbol';
 
 module.exports = {
+  experimentalRender,
   render,
   renderToJSON,
   StyleSheet,
