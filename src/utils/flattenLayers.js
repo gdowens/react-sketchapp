@@ -11,7 +11,11 @@ export default (layer: SketchLayer) => {
   while (nextChild) {
     const isLayerGroup = layer.addLayers !== undefined;
     // only remove layers that contain one or no layers
-    if (isLayerGroup && nextChild.containsNoOrOneLayers()) {
+    if (
+      isLayerGroup &&
+      nextChild.containsNoOrOneLayers() &&
+      nextChild !== layer
+    ) {
       if (nextChild.containsOneLayer()) {
         if (
           NSStringFromClass(nextChild.class()).isEqualToString('MSLayerGroup')
